@@ -28,6 +28,7 @@ public class PostController {
             @RequestBody PostDto postDto,
             @PathVariable Integer userId,
             @PathVariable Integer categoryId
+
              )
      {
          PostDto  createPost=  this.postService.createPost(postDto,userId,categoryId);
@@ -78,9 +79,12 @@ public class PostController {
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPost (
             @RequestParam (value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-            @RequestParam (value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
-      PostResponse postResponse =   this.postService.getAllPosts(pageNumber, pageSize);
-       // System.out.println(allPost);
+            @RequestParam (value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+            @RequestParam (value = "sortBy", defaultValue = "postId",required = false) String sortBy,
+            @RequestParam (value = "sortDir", defaultValue = "asc",required = false) String sortDir
+            ) {
+      PostResponse postResponse =   this.postService.getAllPosts(pageNumber, pageSize,sortBy,sortDir);
+
         return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
     }
 }

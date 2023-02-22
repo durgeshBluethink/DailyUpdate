@@ -6,7 +6,6 @@ import com.blogger.entities.User;
 import com.blogger.exception.ResourceNotFoundException;
 import com.blogger.payloads.PostDto;
 import com.blogger.payloads.PostResponse;
-import com.blogger.payloads.UserDto;
 import com.blogger.repo.CategoryRepo;
 import com.blogger.repo.PostRepo;
 import com.blogger.repo.UserRepo;
@@ -16,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -73,8 +73,22 @@ public class PostServiceImp implements PostService {
     }
 
     @Override
-    public PostResponse getAllPosts(Integer pageNumber, Integer pageSize) {
-        Pageable pageable  =  PageRequest.of(pageNumber,pageSize);
+    public PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDir ) {
+        //this is case one for this problem solved
+        //this is first Approach
+        Sort sort =   (sortDir.equalsIgnoreCase("asc"))? Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+
+        //this is case 2nd  for this problem solved (asc and desc)
+        //this is 2nd Approach
+//        if(sortDir.equalsIgnoreCase("asc")){
+//
+//            sort = Sort.by(sortBy).ascending();
+//        }
+//        else {
+//            sort = Sort.by(sortBy).descending();
+//        }
+      //  Pageable pageable  =  PageRequest.of(pageNumber,pageSize, Sort.by(sortBy).descending()); // this is sortBy methods uses
+        Pageable pageable  =  PageRequest.of(pageNumber,pageSize,sort);
         Page<Post> pagePost = this.postRepo.findAll(pageable);
         List<Post> AllPosts= pagePost.getContent();
 
@@ -103,6 +117,7 @@ public class PostServiceImp implements PostService {
 
     @Override
     public List<PostDto> getPostByUser(Integer userId) {
+
         User user  = this.userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User","userId",userId));
         List<Post> posts = this.postRepo.findByUser(user);
         List<PostDto> postDtos = posts.stream().map((post) ->this.modelMapper.map(post,PostDto.class))
