@@ -5,12 +5,12 @@ import com.blogger.entities.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.ManyToOne;
+
 import java.util.Date;
 @Data
 @NoArgsConstructor
 public class PostDto {
-
+   private Integer postId;
     private String title;
     private String content;
     private

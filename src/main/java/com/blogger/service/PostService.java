@@ -2,6 +2,7 @@ package com.blogger.service;
 
 import com.blogger.entities.Post;
 import com.blogger.payloads.PostDto;
+import com.blogger.payloads.PostResponse;
 
 import java.util.List;
 
@@ -15,16 +16,16 @@ public interface PostService{
     //getby id
     PostDto getPostById(Integer postId);
     //get all post
-    List<PostDto> getAllPosts();
+    PostResponse getAllPosts(Integer pageNumber, Integer pageSize);
 
     //get all post by category's
 
-    List<Post> getPostByCategory(Integer categoryId);
+    List<PostDto> getPostByCategory(Integer categoryId);
 
     //get all post by user's
-    List<Post> getPostByUser(Integer userId);
+    List<PostDto> getPostByUser(Integer userId);
 
     //search posts
-    List<Post>searchPosts(String keyword);
+    List<PostDto>searchPosts(String keyword);
 
 }
