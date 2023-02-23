@@ -8,8 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostDto {

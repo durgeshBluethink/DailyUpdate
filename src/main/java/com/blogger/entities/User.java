@@ -9,10 +9,10 @@ import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
-@AllArgsConstructor
 @Entity
+@Data
+@AllArgsConstructor
+
 @NoArgsConstructor
 public class User implements UserDetails {
     @Id

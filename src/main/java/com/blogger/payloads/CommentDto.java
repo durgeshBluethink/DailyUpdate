@@ -2,8 +2,7 @@ package com.blogger.payloads;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDto {

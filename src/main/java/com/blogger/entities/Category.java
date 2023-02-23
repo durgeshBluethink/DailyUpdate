@@ -6,11 +6,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

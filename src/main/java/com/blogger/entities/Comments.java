@@ -5,11 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+
 
 public class Comments {
     @Id
