@@ -1,14 +1,17 @@
 package com.blogger.entities;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Post {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +25,7 @@ public class Post {
     private  Category category;
     @ManyToOne
     private User user;
+
+   @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    private Set<Comments> comments=new HashSet<>();
 }

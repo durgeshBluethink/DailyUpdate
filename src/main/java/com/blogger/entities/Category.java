@@ -1,15 +1,16 @@
 package com.blogger.entities;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@Entity
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

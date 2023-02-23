@@ -1,9 +1,11 @@
 package com.blogger.controller;
 
+import com.blogger.config.AppConstants;
 import com.blogger.entities.Post;
 import com.blogger.payloads.ApiResponse;
 import com.blogger.payloads.PostDto;
 import com.blogger.payloads.PostResponse;
+import com.blogger.service.FileService;
 import com.blogger.service.PostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class PostController {
     private PostService postService;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private FileService fileService;
 
     //create
      @PostMapping("/user/{userId}/category/{categoryId}/posts")
@@ -78,13 +82,20 @@ public class PostController {
 
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPost (
-            @RequestParam (value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-            @RequestParam (value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-            @RequestParam (value = "sortBy", defaultValue = "postId",required = false) String sortBy,
-            @RequestParam (value = "sortDir", defaultValue = "asc",required = false) String sortDir
+            @RequestParam (value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam (value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam (value = "sortBy", defaultValue = AppConstants.SORT_BY,required = false) String sortBy,
+            @RequestParam (value = "sortDir", defaultValue = AppConstants.SORT_DIR,required = false) String sortDir
             ) {
       PostResponse postResponse =   this.postService.getAllPosts(pageNumber, pageSize,sortBy,sortDir);
 
         return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
     }
+
+    // Search according to title
+     @GetMapping("/posts/search/{keywords}")
+     public  ResponseEntity<List<PostDto>> searchPostByTitle(@PathVariable("keywords") String keywords){
+         List<PostDto> postDtoList = this.postService.searchPosts(keywords);
+         return new  ResponseEntity<List<PostDto>>(postDtoList,HttpStatus.OK);
+     }
 }
