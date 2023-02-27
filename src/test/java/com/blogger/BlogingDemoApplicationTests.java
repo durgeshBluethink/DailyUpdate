@@ -1,6 +1,7 @@
 package com.blogger;
 
-import com.blogger.repo.UserRepo;
+
+import durgesh.blog.repositories.UserRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
